@@ -7,6 +7,7 @@
     --glass-bg: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 105, 180, 0.3);
     --text-color: #ffffff;
+    --neon-green: #00ff9d;
 }
 
 * {
@@ -21,10 +22,9 @@ body {
     color: var(--text-color);
     overflow-x: hidden;
     min-height: 100vh;
-    position: relative;
 }
 
-/* --- LIQUID BACKGROUND ANIMATION --- */
+/* --- BACKGROUND ANIMATION (Liquid Blobs) --- */
 .background-blobs {
     position: fixed;
     top: 0;
@@ -43,44 +43,20 @@ body {
     animation: float 10s infinite alternate;
 }
 
-.blob:nth-child(1) {
-    top: -10%;
-    left: -10%;
-    width: 500px;
-    height: 500px;
-    background: var(--bp-pink);
-    animation-delay: 0s;
-}
-
-.blob:nth-child(2) {
-    bottom: -10%;
-    right: -10%;
-    width: 400px;
-    height: 400px;
-    background: #8a2be2;
-    animation-delay: -5s;
-}
-
-.blob:nth-child(3) {
-    top: 40%;
-    left: 40%;
-    width: 300px;
-    height: 300px;
-    background: var(--bp-light-pink);
-    animation-duration: 15s;
-}
+.blob:nth-child(1) { top: -10%; left: -10%; width: 500px; height: 500px; background: var(--bp-pink); }
+.blob:nth-child(2) { bottom: -10%; right: -10%; width: 400px; height: 400px; background: #8a2be2; animation-delay: -5s; }
+.blob:nth-child(3) { top: 40%; left: 40%; width: 300px; height: 300px; background: var(--bp-light-pink); animation-duration: 15s; }
 
 @keyframes float {
     0% { transform: translate(0, 0) scale(1); }
     100% { transform: translate(30px, 50px) scale(1.1); }
 }
 
-/* --- HEADER --- */
+/* --- HEADER & HERO (Simple Animations) --- */
 header {
     padding: 20px 5%;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
     background: rgba(15, 15, 15, 0.8);
     backdrop-filter: blur(10px);
     position: sticky;
@@ -98,36 +74,19 @@ header {
     text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
 }
 
-/* --- HERO SECTION --- */
-.hero {
-    text-align: center;
-    padding: 80px 20px;
-    position: relative;
-}
+.hero { padding: 60px 20px 40px; text-align: center; }
 
 .hero h1 {
-    font-size: 3rem;
-    margin-bottom: 10px;
+    font-size: 2.5rem;
     background: linear-gradient(to right, #fff, var(--bp-pink));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: fadeInDown 1s ease;
+    animation: fadeInDown 1s ease; /* Animation restored */
 }
+.hero p { color: #ccc; animation: fadeInUp 1s ease 0.3s forwards; opacity: 1; }
 
-.hero p {
-    font-size: 1.2rem;
-    color: #ccc;
-    margin-bottom: 30px;
-    animation: fadeInUp 1s ease 0.3s forwards;
-    opacity: 0;
-}
-
-/* --- PRODUCTS GRID --- */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
+/* --- GRID & CARD (Glassmorphism & Transition) --- */
+.container { max-width: 1200px; margin: 0 auto; padding: 20px; }
 
 .product-grid {
     display: grid;
@@ -136,58 +95,44 @@ header {
     padding-bottom: 50px;
 }
 
-/* --- GLASS CARD DESIGN --- */
 .card {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     border-radius: 20px;
-    padding: 20px;
+    padding: 25px 20px;
     text-align: center;
     backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    opacity: 0;
-    transform: translateY(30px);
-    animation: cardEntrance 0.8s forwards;
+    transition: 0.4s;
     position: relative;
     overflow: hidden;
 }
 
-/* Animation delays for cards */
-.card:nth-child(1) { animation-delay: 0.2s; }
-.card:nth-child(2) { animation-delay: 0.4s; }
-.card:nth-child(3) { animation-delay: 0.6s; }
-
 .card:hover {
-    transform: translateY(-10px) scale(1.02);
+    transform: translateY(-10px);
+    box-shadow: 0 0 25px rgba(255, 105, 180, 0.5);
     border-color: var(--bp-pink);
-    box-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
 }
 
-/* Liquid shine effect on hover */
-.card::before {
-    content: '';
+/* Badge Style */
+.update-badge {
     position: absolute;
     top: 0;
-    left: -100%;
+    left: 0;
     width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: 0.5s;
-}
-.card:hover::before {
-    left: 100%;
+    background: rgba(255, 105, 180, 0.2);
+    color: var(--bp-light-pink);
+    font-size: 0.75rem;
+    padding: 5px 0;
+    font-weight: 600;
+    border-bottom: 1px solid var(--glass-border);
+    letter-spacing: 1px;
 }
 
-.card h3 {
-    font-size: 1.5rem;
-    margin: 15px 0;
-    color: #fff;
-}
+.icon-box { margin-top: 25px; font-size: 3rem; margin-bottom: 10px; }
+.card h3 { font-size: 1.4rem; color: #fff; margin-bottom: 5px; }
 
 .price-tag {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: bold;
     color: var(--bp-pink);
     margin-bottom: 15px;
@@ -198,8 +143,9 @@ header {
     list-style: none;
     margin-bottom: 25px;
     text-align: left;
+    font-size: 0.85rem;
     color: #ddd;
-    font-size: 0.9rem;
+    padding: 0 10px;
 }
 
 .features li {
@@ -215,39 +161,46 @@ header {
     color: var(--bp-pink);
 }
 
-/* --- BUTTONS --- */
+/* --- BUTTONS & NEW WHATSAPP PULSE EFFECT --- */
+
+/* KEYFRAMES untuk Efek Pulsing Neon */
+@keyframes btn-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.7); }
+    50% { box-shadow: 0 0 0 10px rgba(255, 105, 180, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0); }
+}
+
 .btn-buy {
-    display: inline-block;
     width: 100%;
-    padding: 12px 0;
+    padding: 12px;
     border-radius: 50px;
     background: linear-gradient(45deg, var(--bp-pink), #ff1493);
     color: white;
     font-weight: 600;
-    text-decoration: none;
     border: none;
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: 0.3s;
     position: relative;
-    overflow: hidden;
+    /* Efek Pulse diterapkan di sini */
+    animation: btn-pulse 2s infinite ease-out;
 }
 
 .btn-buy:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 15px var(--bp-pink);
+    box-shadow: 0 0 20px var(--bp-pink); /* Glow lebih kuat saat di-hover */
+    animation: none; /* Hentikan pulse saat di-hover */
 }
 
-/* --- FOOTER --- */
+/* FOOTER */
 footer {
     text-align: center;
     padding: 20px;
-    background: rgba(0,0,0,0.8);
     border-top: 1px solid var(--glass-border);
     color: #888;
-    font-size: 0.9rem;
+    background: rgba(0,0,0,0.8);
 }
 
-/* --- ANIMATIONS --- */
+/* Animations that were already present */
 @keyframes fadeInDown {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -256,14 +209,4 @@ footer {
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes cardEntrance {
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.icon-box {
-    font-size: 3rem;
-    margin-bottom: 10px;
-    color: var(--bp-light-pink);
 }
