@@ -1,13 +1,11 @@
 /* --- RESET & VARIABLES --- */
 :root {
     --bp-black: #0f0f0f;
-    --bp-dark-gray: #1f1f1f;
     --bp-pink: #ff69b4; /* Hot Pink */
     --bp-light-pink: #ffb6c1;
     --glass-bg: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 105, 180, 0.3);
     --text-color: #ffffff;
-    --neon-green: #00ff9d;
 }
 
 * {
@@ -24,17 +22,8 @@ body {
     min-height: 100vh;
 }
 
-/* --- BACKGROUND ANIMATION (Liquid Blobs) --- */
-.background-blobs {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    overflow: hidden;
-}
-
+/* --- ANIMASI LIQUID BACKGROUND --- */
+.background-blobs { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
 .blob {
     position: absolute;
     border-radius: 50%;
@@ -52,7 +41,7 @@ body {
     100% { transform: translate(30px, 50px) scale(1.1); }
 }
 
-/* --- HEADER & HERO (Simple Animations) --- */
+/* --- HEADER & HERO --- */
 header {
     padding: 20px 5%;
     display: flex;
@@ -81,11 +70,10 @@ header {
     background: linear-gradient(to right, #fff, var(--bp-pink));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: fadeInDown 1s ease; /* Animation restored */
 }
-.hero p { color: #ccc; animation: fadeInUp 1s ease 0.3s forwards; opacity: 1; }
+.hero p { color: #ccc; }
 
-/* --- GRID & CARD (Glassmorphism & Transition) --- */
+/* --- CARD GLASSMORPHISM & ANIMASI --- */
 .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
 
 .product-grid {
@@ -107,10 +95,35 @@ header {
     overflow: hidden;
 }
 
+/* Cahaya Bergerak (Liquid Shine Effect) saat HOVER */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    /* Gradient putih transparan */
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: 0.7s ease-in-out; /* Dibuat lebih lambat dan halus */
+    z-index: 1; /* Pastikan di atas konten card */
+}
+
 .card:hover {
     transform: translateY(-10px);
     box-shadow: 0 0 25px rgba(255, 105, 180, 0.5);
     border-color: var(--bp-pink);
+}
+
+/* Animasi Cahaya Bergerak (The Shine) */
+.card:hover::before {
+    left: 100%; /* Cahaya bergerak dari kiri ke kanan */
+}
+
+/* Animasi saat Card DITEKAN (The Press/Active State) */
+.card:active {
+    transform: scale(0.98);
+    box-shadow: 0 0 5px var(--bp-pink);
 }
 
 /* Badge Style */
@@ -126,8 +139,10 @@ header {
     font-weight: 600;
     border-bottom: 1px solid var(--glass-border);
     letter-spacing: 1px;
+    z-index: 2; /* Di atas shine effect */
 }
 
+/* Content Styles */
 .icon-box { margin-top: 25px; font-size: 3rem; margin-bottom: 10px; }
 .card h3 { font-size: 1.4rem; color: #fff; margin-bottom: 5px; }
 
@@ -139,31 +154,12 @@ header {
     text-shadow: 0 0 5px var(--bp-pink);
 }
 
-.features {
-    list-style: none;
-    margin-bottom: 25px;
-    text-align: left;
-    font-size: 0.85rem;
-    color: #ddd;
-    padding: 0 10px;
-}
+.features { list-style: none; margin-bottom: 25px; text-align: left; font-size: 0.85rem; color: #ddd; padding: 0 10px; }
+.features li { margin-bottom: 8px; padding-left: 20px; position: relative; }
+.features li::before { content: '✦'; position: absolute; left: 0; color: var(--bp-pink); }
 
-.features li {
-    margin-bottom: 8px;
-    padding-left: 20px;
-    position: relative;
-}
+/* --- BUTTON PULSE EFFECT --- */
 
-.features li::before {
-    content: '✦';
-    position: absolute;
-    left: 0;
-    color: var(--bp-pink);
-}
-
-/* --- BUTTONS & NEW WHATSAPP PULSE EFFECT --- */
-
-/* KEYFRAMES untuk Efek Pulsing Neon */
 @keyframes btn-pulse {
     0% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.7); }
     50% { box-shadow: 0 0 0 10px rgba(255, 105, 180, 0); }
@@ -180,33 +176,19 @@ header {
     border: none;
     cursor: pointer;
     transition: 0.3s;
-    position: relative;
-    /* Efek Pulse diterapkan di sini */
-    animation: btn-pulse 2s infinite ease-out;
+    animation: btn-pulse 2s infinite ease-out; /* Efek Pulse */
 }
 
 .btn-buy:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 20px var(--bp-pink); /* Glow lebih kuat saat di-hover */
-    animation: none; /* Hentikan pulse saat di-hover */
+    box-shadow: 0 0 20px var(--bp-pink);
+    animation: none;
 }
 
-/* FOOTER */
 footer {
     text-align: center;
     padding: 20px;
     border-top: 1px solid var(--glass-border);
     color: #888;
     background: rgba(0,0,0,0.8);
-}
-
-/* Animations that were already present */
-@keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
 }
